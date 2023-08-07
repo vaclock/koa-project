@@ -11,9 +11,9 @@
 #Testing Output folder
 .output/
 #Extension App-file
-*.app
+# *.app
 #Rapid Application Development File
-rad.json
+# rad.json
 #Translation Base-file
 *.g.xlf
 #License-file
@@ -21,3 +21,4 @@ rad.json
 #Test results file
 TestResults.xml
 /node_modules
+yarn-error.log
