@@ -1,14 +1,17 @@
 /**
  * 该模块用于处理请求,并返回数据,具体用于router分发路由之后调用这里的处理函数
  */
+const jwt = require('jsonwebtoken')
+
 const UserService = require('../services/user.service.js');
-console.log(UserService.createUser, 'UserService');
+
+const {JWT_SECRET} = require('../config/config.default.js');
 
 class UserController {
     async register(ctx, next) {
         // 1. 获取数据
         const data = ctx.request.body;
-        console.log(data, 'data');
+        // console.log(data, 'data');
         const {user_name, password, is_admin} = data;
         try {
             // 2. 操作数据库
@@ -21,6 +24,8 @@ class UserController {
                     user_name: res.user_name
                 }
             };
+
+            console.log(ctx.body, 'bodybody');
         } catch (error) {
             console.log(error, 'error');
             ctx.body = {
@@ -32,8 +37,27 @@ class UserController {
        
         next();
     }
-    async login() {
+    async login(ctx, next) {
+        const user_name = ctx.request.body.user_name;
 
+        try {
+            const {password, ...userInfo} = await UserService.readUser(user_name);
+            ctx.body = {
+                status: 200,
+                code: '12000',
+                data: {
+                    token: jwt.sign(userInfo, JWT_SECRET, {
+                        expiresIn: '1d',
+                        // algorithm: 'RS256'
+                    })
+                }
+            }
+
+        } catch (error) {
+            console.error('login fail', error);
+        }
+
+        await next();
     }
 }
 
