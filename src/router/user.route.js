@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const userController = require('../controller/user.controller');
 
-const {verifyUser, cryptPassword} = require('../middleware/user.middleware.js');
+const {userValidator, verifyLogin, verifyUser, cryptPassword} = require('../middleware/user.middleware.js');
 
 
 let router = new Router({
@@ -13,6 +13,8 @@ router.get('/', (ctx, next) => {
     ctx.body = `ctx.request.body: ${ctx.request.body}`
 });
 
-router.post('/register', verifyUser, cryptPassword, userController.register);
+router.post('/register', userValidator, verifyUser, cryptPassword, userController.register);
+
+router.post('/login', userValidator, verifyLogin, userController.login);
 
 module.exports = router;
