@@ -18,8 +18,6 @@ const userValidator = async (ctx, next) => {
         return;
     }
 
-    console.log('ok,运行');
-
     await next();
 };
 
@@ -37,7 +35,7 @@ const verifyUser = async (ctx, next) => {
 }
 
 const cryptPassword = async (ctx, next) => {
-    
+
     const {password} = ctx.request.body;
 
     const salt = bcrypt.genSaltSync(10);

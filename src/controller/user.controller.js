@@ -34,7 +34,7 @@ class UserController {
                 data: error
             }
         };
-       
+
         next();
     }
     async login(ctx, next) {
@@ -55,9 +55,41 @@ class UserController {
 
         } catch (error) {
             console.error('login fail', error);
+            ctx.body = {
+                status: 200,
+                code: '12001',
+                data: 'server error'
+            }
         }
 
         await next();
+    }
+
+    async updatePassword(ctx, next) {
+        try {
+            const id = ctx.state.user.id;
+            const password = ctx.request.body.password;
+            const res = await UserService.updateUser({id, password});
+            if (res) {
+                ctx.body = {
+                    status: 200,
+                    code: '200',
+                    data: {
+                        msg: '更改成功'
+                    }
+                };
+            } else {
+                ctx.body = {
+                    status: 200,
+                    code: '200',
+                    data: {
+                        msg: '更改失败'
+                    }
+                };
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
 
