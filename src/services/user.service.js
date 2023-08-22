@@ -11,8 +11,7 @@ class UserService {
                 password,
                 is_admin
             });
-            console.log('创建之后的res:', res);
-            return res; 
+            return res;
         } catch (error) {
             console.log('数据库错误', error);
             return error;
@@ -24,8 +23,24 @@ class UserService {
         return res;
     }
 
-    updateUser(userName, password) {
-
+    async updateUser({id, user_name, password, is_admin}) {
+        try {
+            // if (!old_user) {
+            //     return;
+            // }
+            let updateUserInfo = {};
+            user_name && (updateUserInfo.user_name = user_name);
+            password && (updateUserInfo.password = password);
+            is_admin && (updateUserInfo.is_admin = is_admin);
+            const res = await User.update(updateUserInfo, {
+                where: {
+                    id
+                }
+            });
+            return res[0] > 0 ? true : false;
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     deleteUser(userName) {
