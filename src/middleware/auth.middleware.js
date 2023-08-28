@@ -30,7 +30,18 @@ const auth = async (ctx, next) => {
 }
 
 
+const isAdmin = async (ctx, next) => {
+    const {is_admin} = ctx.state.user;
+
+    if (!is_admin) {
+        ctx.body = isNotAdmin;
+    }
+
+    await next();
+};
+
 
 module.exports = {
     auth,
+    isAdmin
 }
