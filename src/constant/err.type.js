@@ -1,7 +1,7 @@
 module.exports = {
     paramsLose: (params) => {
         return {
-            status: 500,
+            status: 204,
             body: {
                 status: 'error',
                 code: '12499',
@@ -13,10 +13,10 @@ module.exports = {
      * 用户已经存在
      */
     userAlreadyExistsError: {
-        status: 500,
+        status: 204,
         body: {
             status: 'error',
-            code: '12500',
+            code: '12204',
             msg: 'user already exists'
         }
     },
@@ -26,7 +26,7 @@ module.exports = {
      * 密码不正确
      */
     passwordError: {
-        status: 500,
+        status: 204,
         body: {
             status: 'error',
             code: '12501',
@@ -38,7 +38,7 @@ module.exports = {
      * token已过期
      */
     tokenExpiredError: {
-        status: 500,
+        status: 204,
         body: {
             status: 'error',
             code: '12502',
@@ -47,11 +47,19 @@ module.exports = {
     },
 
     tokenNotCorrect: {
-        status: 500,
+        status: 204,
         body: {
             status: 'error',
             code: '12503',
             msg: 'token is not correct'
+        }
+    },
+
+    isNotAdmin: {
+        status: 204,
+        body: {
+            status: 'error',
+            code: 'current user is not admin',
         }
     }
 }

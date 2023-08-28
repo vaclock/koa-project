@@ -5,6 +5,6 @@ let router = new Router({
     prefix: '/goods'
 });
 
-router.get('/upload', goodsController.upload)
+router.post('/upload', goodsController.upload)
 
 module.exports = router;
