@@ -55,11 +55,40 @@ module.exports = {
         }
     },
 
+    tokenMayErrors: {
+        status: 204,
+        body: {
+            status: 'error',
+            code: '12503',
+            msg: 'token may has some errors, please check your token'
+        }
+    },
+
     isNotAdmin: {
         status: 204,
         body: {
             status: 'error',
+            code: '12504',
             code: 'current user is not admin',
+        }
+    },
+
+
+    unSupportedFileType: {
+        status: 204,
+        body: {
+            status: 'error',
+            code: '12505',
+            code: 'unsupported this filetype',
+        }
+    },
+
+    fileUploadError: {
+        status: 204,
+        body: {
+            status: 'error',
+            code: '12505',
+            code: 'file upload happen error',
         }
     }
 }
