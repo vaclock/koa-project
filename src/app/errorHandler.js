@@ -11,7 +11,7 @@ module.exports = (err, ctx) => {
             status = 500;
     }
 
+    console.error(err);
     ctx.code = status;
     ctx.body = err;
-    console.error(err);
 };
